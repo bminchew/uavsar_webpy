@@ -1,3 +1,5 @@
+uavsar-webpy
+============
 
 uavsar-webpy module contains a few simple tools to download UAVSAR data from ASF. 
 Some examples are included below.  
@@ -18,9 +20,9 @@ discoverable in PYTHONPATH
 Options
 -------
 For convenience, create a text file $HOME/.dathack.d whose first line reads:
-      uavsarhttp:<username>:<password> (replace fields <username> and <password>) 
+      uavsarhttp:username:password (replace fields username and password accordingly) 
    (if you're concerned about privacy run: chmod a-rxw .dathack.d; chmod u+r .dathack.d )
-If $HOME/.dathack.d is not found or if line uavsarhttp:<username>:<password> is not
+If $HOME/.dathack.d is not found or if line uavsarhttp:username:password is not
 present, the routine will prompt the user for the username and password
 
 Examples
