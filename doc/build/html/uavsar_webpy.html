@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>UAVSAR_WebPy &mdash; uavsar_webpy 0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-2.3.1/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-2.3.1/css/bootstrap-responsive.min.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-2.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="uavsar_webpy 0 documentation" href="index.html" />
+    <link rel="prev" title="Welcome to uavsar_webpy’s documentation!" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+<div class="container">
+  
+  <div id="navbar" class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="brand" href="index.html">uavsar_webpy</a>
+      <span class="navbar-text pull-left"><b>1</b></span>
+
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li class="divider-vertical"></li>
+          
+            <li class="dropdown globaltoc-container">
+  <a href="index.html"
+     class="dropdown-toggle"
+     data-toggle="dropdown">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+    ><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">UAVSAR_WebPy</a></li>
+</ul>
+</ul>
+</li>
+            <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"><ul>
+<li><a class="reference internal" href="#">UAVSAR_WebPy</a><ul>
+<li><a class="reference internal" href="#uavsar-insar-download-py"><strong>uavsar_insar_download.py</strong></a><ul>
+<li><a class="reference internal" href="#parameter">Parameter</a></li>
+<li><a class="reference internal" href="#options">Options</a></li>
+<li><a class="reference internal" href="#notes">Notes</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#uavsar-polsar-download-py"><strong>uavsar_polsar_download.py</strong></a><ul>
+<li><a class="reference internal" href="#id4">Parameter</a></li>
+<li><a class="reference internal" href="#id5">Options</a></li>
+<li><a class="reference internal" href="#id6">Notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#http-retrieve-py"><strong>http_retrieve.py</strong></a><ul>
+<li><a class="reference internal" href="#id8">Parameter</a></li>
+<li><a class="reference internal" href="#id9">Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+          
+          
+            
+  <li><a href="index.html"
+         title="previous chapter">&laquo; Welcome to uavsar_webpy&#8217;s documentation!</a></li>
+          
+          
+            <li>
+  <a href="_sources/uavsar_webpy.txt"
+     rel="nofollow">Source</a></li>
+          
+        </ul>
+
+        
+          
+<form class="navbar-search pull-right" style="margin-bottom:-3px;" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section" id="uavsar-webpy">
+<span id="id1"></span><h1>UAVSAR_WebPy<a class="headerlink" href="#uavsar-webpy" title="Permalink to this headline">¶</a></h1>
+<p>UAVSAR_WebPy is a simple toolbox for downloading UAVSAR data through the Alaska Satellite Facility. This package consists of three scripts:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><a class="reference internal" href="#uavsar-insar-download-py"><em>uavsar_insar_download.py</em></a></div>
+<div class="line"><a class="reference internal" href="#uavsar-polsar-download-py"><em>uavsar_polsar_download.py</em></a></div>
+<div class="line"><a class="reference internal" href="#http-retrieve-py"><em>http_retrieve.py</em></a></div>
+</div>
+</div></blockquote>
+<p>described in more detail below.</p>
+<div class="section" id="uavsar-insar-download-py">
+<span id="id2"></span><h2><strong>uavsar_insar_download.py</strong><a class="headerlink" href="#uavsar-insar-download-py" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-uavsar_insar_download"></span><p>uavsar_insar_download.py  :  Download UAVSAR InSAR data from ASF through the password protection</p>
+<p>Usage:  uavsar_insar_download.py url [options]</p>
+<div class="section" id="parameter">
+<h3>Parameter<a class="headerlink" href="#parameter" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>url <span class="classifier-delimiter">:</span> <span class="classifier">Any single URL corresponding to the desired UAVSAR data (this routine </span></dt>
+<dd>will retrieve all of the data)</dd>
+</dl>
+</div>
+<div class="section" id="options">
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>para <span class="classifier-delimiter">:</span> <span class="classifier">data paradigm [default is determined from file extension]</span></dt>
+<dd><p class="first">options:</p>
+<blockquote class="last">
+<div><p>all            :     get it all</p>
+<p>ann            :     get only the annotation file</p>
+<p>rdr            :     get slant-range data and annotation file</p>
+<p>grd            :     get ground-range data and annotation file</p>
+<p>kmz            :     get kmz files and annotation file</p>
+</div></blockquote>
+</dd>
+<dt>type <span class="classifier-delimiter">:</span> <span class="classifier">data type [igm]</span></dt>
+<dd><p class="first">options:</p>
+<blockquote class="last">
+<div><p>igm            :     get it all (default)</p>
+<p>amp1           :     amplitude of scene 1</p>
+<p>amp2           :     amplitude of scene 2</p>
+<p>int            :     wrapped interferogram</p>
+<p>unw            :     unwrapped interferogram</p>
+<p>cor            :     correlation</p>
+<p>hgt            :     DEM (only valid with grd paradigm)</p>
+</div></blockquote>
+</dd>
+<dt>chan <span class="classifier-delimiter">:</span> <span class="classifier">data channels [hh]</span></dt>
+<dd><p class="first">options:</p>
+<blockquote class="last">
+<div><p>hh             :     co-polarized horizontal (default)</p>
+<p>hv             :     cross-polarized</p>
+<p>vv             :     co-polarized vertical</p>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Use a comma separted list (no spaces) for multiple options (e.g. rdr,grd)</p>
+</li>
+<li><p class="first">Do not combine para, type, and/or chan lists</p>
+</li>
+<li><dl class="first docutils">
+<dt>Python Mechanize (<a class="reference external" href="http://wwwsearch.sourceforge.net/mechanize/">http://wwwsearch.sourceforge.net/mechanize/</a>) must be installed and </dt>
+<dd><p class="first last">discoverable in PYTHONPATH</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>For convenience, create a text file $HOME/.dathack.d whose first line reads:</dt>
+<dd><p class="first last">uavsarhttp:&lt;username&gt;:&lt;password&gt; (replace fields &lt;username&gt; and &lt;password&gt;) 
+(if you&#8217;re concerned about privacy run: chmod a-rxw .dathack.d; chmod u+r .dathack.d )</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>If $HOME/.dathack.d is not found or if line uavsarhttp:&lt;username&gt;:&lt;password&gt; is not</dt>
+<dd><p class="first last">present, the routine will prompt the user for the username and password</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>Consider a random data (separated for instructional purposes only...one could just cut and paste the complete address):</p>
+<div class="highlight-rst"><div class="highlight"><pre>&gt;&gt;&gt; url  = &#39;http://uavsar.asfdaac.alaska.edu&#39;
+&gt;&gt;&gt; line = &#39;UA_SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01&#39;
+&gt;&gt;&gt; data = &#39;SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01.int&#39;
+&gt;&gt;&gt; link = &#39;/&#39;.join([url,line,data])
+</pre></div>
+</div>
+<p>Download all interferograms and supporting data (amp1, amp2, cor, int, unw) in radar coordinates for line <a class="reference external" href="http://uavsar.jpl.nasa.gov/cgi-bin/product.pl?jobName=SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01#data">SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01</a></p>
+<div class="highlight-rst"><div class="highlight"><pre>&gt;&gt;&gt; uavsar_insar_download.py link
+</pre></div>
+</div>
+<p>Download wrapped igrams and correlation maps in radar and groundrange coordinates as well as kmz format</p>
+<div class="highlight-rst"><div class="highlight"><pre>&gt;&gt;&gt; uavsar_insar_download.py link rdr,grd,kmz int,cor
+</pre></div>
+</div>
+<dl class="class">
+<dt id="uavsar_insar_download.URLs">
+<em class="property">class </em><tt class="descclassname">uavsar_insar_download.</tt><tt class="descname">URLs</tt><big>(</big><em>sample</em>, <em>para</em>, <em>types</em>, <em>channels</em><big>)</big><a class="reference internal" href="_modules/uavsar_insar_download.html#URLs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uavsar_insar_download.URLs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that builds a family of URLs from the sample</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="uavsar-polsar-download-py">
+<span id="id3"></span><h2><strong>uavsar_polsar_download.py</strong><a class="headerlink" href="#uavsar-polsar-download-py" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-uavsar_polsar_download"></span><p>uavsar_polsar_download.py   :  Download UAVSAR PolSAR data from ASF through the password protection</p>
+<p>Usage:  uavsar_polsar_download.py url [options]</p>
+<div class="section" id="id4">
+<h3>Parameter<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>url <span class="classifier-delimiter">:</span> <span class="classifier">Any single URL corresponding to the desired UAVSAR data (this routine </span></dt>
+<dd>will retrieve all of the data)</dd>
+</dl>
+</div>
+<div class="section" id="id5">
+<h3>Options<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>para <span class="classifier-delimiter">:</span> <span class="classifier">data paradigm [default &#8211;&gt; extension of url]</span></dt>
+<dd><p class="first">options:</p>
+<blockquote class="last">
+<div><p>all            :     get it all</p>
+<p>ann            :     get only the annotation file</p>
+<p>mlc            :     get mlc data and annotation file</p>
+<p>stk            :     get compressed Stokes data and annotation file</p>
+<p>grd            :     get grd data and annotation file</p>
+<p>dem            :     get dem and annotation file</p>
+<p>kmz            :     get the kmz file</p>
+</div></blockquote>
+</dd>
+<dt>chan <span class="classifier-delimiter">:</span> <span class="classifier">data channels (only works with all, mlc, or grd paradigms) [ach]</span></dt>
+<dd><p class="first">options:</p>
+<blockquote class="last">
+<div><p>ach            :     get HHHH, HVHV, VVVV, HHHV, HHVV, HVVV data</p>
+<p>copl           :     get co-polarized data (HHHH, VVVV, and HHVV)</p>
+<p>crpl           :     get cross-pol data (HVHV, HHHV, and HVVV)</p>
+<p>powr           :     get power data (HHHH, VVVV, and HVHV)</p>
+<p>chan           :     any of {hhhh, hvhv, vvvv, hhhv, hhvv, hvvv} get data for the corresponding channel</p>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="id6">
+<h3>Notes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Use a comma separted list (no spaces) for multiple options (e.g. mlc,grd)</p>
+</li>
+<li><p class="first">Separate para and chan arguments with a space</p>
+</li>
+<li><dl class="first docutils">
+<dt>Python Mechanize (<a class="reference external" href="http://wwwsearch.sourceforge.net/mechanize/">http://wwwsearch.sourceforge.net/mechanize/</a>) must be installed and </dt>
+<dd><p class="first last">discoverable in PYTHONPATH</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>For convenience, create a text file $HOME/.dathack.d whose first line reads:</dt>
+<dd><p class="first last">uavsarhttp:&lt;username&gt;:&lt;password&gt; (replace fields &lt;username&gt; and &lt;password&gt;) 
+(if you&#8217;re concerned about privacy run: chmod a-rxw .dathack.d; chmod u+r .dathack.d )</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>If $HOME/.dathack.d is not found or if line uavsarhttp:&lt;username&gt;:&lt;password&gt; is not</dt>
+<dd><p class="first last">present, the routine will prompt the user for the username and password</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="class">
+<dt id="uavsar_polsar_download.URLs">
+<em class="property">class </em><tt class="descclassname">uavsar_polsar_download.</tt><tt class="descname">URLs</tt><big>(</big><em>sample</em>, <em>para</em>, <em>channels</em><big>)</big><a class="reference internal" href="_modules/uavsar_polsar_download.html#URLs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uavsar_polsar_download.URLs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that builds a family of URLs from the sample</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="http-retrieve-py">
+<span id="id7"></span><h2><strong>http_retrieve.py</strong><a class="headerlink" href="#http-retrieve-py" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-http_retrieve"></span><p>http_retrieve.py :  Simple routine to download password-protected data</p>
+<p>Usage: http_retrieve.py url</p>
+<div class="section" id="id8">
+<h3>Parameter<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>url   :  file URL</p>
+</div>
+<div class="section" id="id9">
+<h3>Notes<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><dl class="first docutils">
+<dt>Python Mechanize (<a class="reference external" href="http://wwwsearch.sourceforge.net/mechanize/">http://wwwsearch.sourceforge.net/mechanize/</a>) must be installed and </dt>
+<dd><p class="first last">discoverable in PYTHONPATH</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>For convenience, create a text file $HOME/.dathack.d whose first line reads:</dt>
+<dd><p class="first last">uavsarhttp:&lt;username&gt;:&lt;password&gt;
+(if you&#8217;re concerned about privacy run: chmod a-rxw .dathack.d; chmod u+r .dathack.d )</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>If $HOME/.dathack.d is not found or if line uavsarhttp:&lt;username&gt;:&lt;password&gt; is not</dt>
+<dd><p class="first last">present, the routine will prompt the user for the username and password</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="function">
+<dt id="http_retrieve.get_password">
+<tt class="descclassname">http_retrieve.</tt><tt class="descname">get_password</tt><big>(</big><em>pfile='.dathack.d'</em>, <em>lineid='uavsarhttp'</em><big>)</big><a class="reference internal" href="_modules/http_retrieve.html#get_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#http_retrieve.get_password" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Attempts to retrieve username and password from $HOME/pfile which has the format</dt>
+<dd>&lt;lineid&gt;:&lt;username&gt;:&lt;password&gt;</dd>
+</dl>
+<p>If unsuccessful, prompts the user for the information</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, Brent Minchew.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

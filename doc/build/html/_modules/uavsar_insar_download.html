@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>uavsar_insar_download &mdash; uavsar_webpy 0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-2.3.1/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-2.3.1/css/bootstrap-responsive.min.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-2.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="uavsar_webpy 0 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+<div class="container">
+  
+  <div id="navbar" class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="brand" href="../index.html">uavsar_webpy</a>
+      <span class="navbar-text pull-left"><b>1</b></span>
+
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li class="divider-vertical"></li>
+          
+            <li class="dropdown globaltoc-container">
+  <a href="../index.html"
+     class="dropdown-toggle"
+     data-toggle="dropdown">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+    ><ul>
+<li class="toctree-l1"><a class="reference internal" href="../uavsar_webpy.html">UAVSAR_WebPy</a></li>
+</ul>
+</ul>
+</li>
+            <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"></ul>
+</li>
+          
+          
+            
+          
+          
+            <li></li>
+          
+        </ul>
+
+        
+          
+<form class="navbar-search pull-right" style="margin-bottom:-3px;" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        
+      </div>
+    </div>
+  </div>
+
+  
+  <h1>Source code for uavsar_insar_download</h1><div class="highlight"><pre>
+<span class="c">#!/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">uavsar_insar_download.py  :  Download UAVSAR InSAR data from ASF through the password protection</span>
+
+<span class="sd">Usage:  uavsar_insar_download.py url [options]</span>
+
+<span class="sd">Parameter</span>
+<span class="sd">---------</span>
+<span class="sd">url      :     Any single URL corresponding to the desired UAVSAR data (this routine </span>
+<span class="sd">                  will retrieve all of the data)</span>
+
+<span class="sd">Options</span>
+<span class="sd">-------</span>
+<span class="sd">para     :     data paradigm [default is determined from file extension]</span>
+<span class="sd">               options:  </span>
+
+<span class="sd">                     all            :     get it all  </span>
+
+<span class="sd">                     ann            :     get only the annotation file </span>
+
+<span class="sd">                     rdr            :     get slant-range data and annotation file</span>
+
+<span class="sd">                     grd            :     get ground-range data and annotation file</span>
+
+<span class="sd">                     kmz            :     get kmz files and annotation file</span>
+
+<span class="sd">type     :     data type [igm]</span>
+<span class="sd">               options:</span>
+
+<span class="sd">                     igm            :     get it all (default)</span>
+
+<span class="sd">                     amp1           :     amplitude of scene 1</span>
+
+<span class="sd">                     amp2           :     amplitude of scene 2</span>
+
+<span class="sd">                     int            :     wrapped interferogram</span>
+
+<span class="sd">                     unw            :     unwrapped interferogram</span>
+
+<span class="sd">                     cor            :     correlation</span>
+
+<span class="sd">                     hgt            :     DEM (only valid with grd paradigm)</span>
+
+<span class="sd">chan     :     data channels [hh]</span>
+<span class="sd">               options:</span>
+
+<span class="sd">                     hh             :     co-polarized horizontal (default)</span>
+
+<span class="sd">                     hv             :     cross-polarized</span>
+
+<span class="sd">                     vv             :     co-polarized vertical </span>
+
+<span class="sd">Notes</span>
+<span class="sd">------------</span>
+<span class="sd">* Use a comma separted list (no spaces) for multiple options (e.g. rdr,grd)</span>
+
+<span class="sd">* Do not combine para, type, and/or chan lists</span>
+
+<span class="sd">* Python Mechanize (http://wwwsearch.sourceforge.net/mechanize/) must be installed and </span>
+<span class="sd">   discoverable in PYTHONPATH</span>
+
+<span class="sd">* For convenience, create a text file $HOME/.dathack.d whose first line reads:</span>
+<span class="sd">   uavsarhttp:&lt;username&gt;:&lt;password&gt; (replace fields &lt;username&gt; and &lt;password&gt;) </span>
+<span class="sd">   (if you&#39;re concerned about privacy run: chmod a-rxw .dathack.d; chmod u+r .dathack.d )</span>
+
+<span class="sd">* If $HOME/.dathack.d is not found or if line uavsarhttp:&lt;username&gt;:&lt;password&gt; is not</span>
+<span class="sd">   present, the routine will prompt the user for the username and password</span>
+
+<span class="sd">Examples</span>
+<span class="sd">--------</span>
+<span class="sd">Consider a random data (separated for instructional purposes only...one could just cut and paste the complete address):</span>
+
+<span class="sd">&gt;&gt;&gt; url  = &#39;http://uavsar.asfdaac.alaska.edu&#39;</span>
+<span class="sd">&gt;&gt;&gt; line = &#39;UA_SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01&#39;</span>
+<span class="sd">&gt;&gt;&gt; data = &#39;SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01.int&#39;</span>
+<span class="sd">&gt;&gt;&gt; link = &#39;/&#39;.join([url,line,data])</span>
+
+<span class="sd">Download all interferograms and supporting data (amp1, amp2, cor, int, unw) in radar coordinates for line `SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01`_</span>
+
+<span class="sd">&gt;&gt;&gt; uavsar_insar_download.py link</span>
+
+<span class="sd">Download wrapped igrams and correlation maps in radar and groundrange coordinates as well as kmz format</span>
+
+<span class="sd">&gt;&gt;&gt; uavsar_insar_download.py link rdr,grd,kmz int,cor</span>
+
+<span class="sd">.. _SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01: http://uavsar.jpl.nasa.gov/cgi-bin/product.pl?jobName=SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01#data</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span><span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">http_retrieve</span> <span class="kn">import</span> <span class="n">http_retrieve</span><span class="p">,</span> <span class="n">get_password</span>
+
+<span class="n">__title__</span>      <span class="o">=</span> <span class="s">&#39;uavsar_insar_download.py&#39;</span>
+<span class="n">__author__</span>     <span class="o">=</span> <span class="s">&#39;Brent Minchew&#39;</span>
+<span class="n">__email__</span>      <span class="o">=</span> <span class="s">&#39;bminchew@caltech.edu&#39;</span>
+<span class="n">__created__</span>    <span class="o">=</span> <span class="s">&#39;June 2013&#39;</span>
+<span class="n">__modified__</span>   <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="n">__version__</span>    <span class="o">=</span> <span class="s">&#39;0.1&#39;</span>
+<span class="n">__status__</span>     <span class="o">=</span> <span class="s">&#39;Development&#39;</span>
+<span class="n">__conditions__</span> <span class="o">=</span> <span class="s">&#39;Use at your own risk.&#39;</span>
+<span class="n">__license__</span>    <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">Copyright (C) 2013   Brent M. Minchew</span>
+<span class="s">--------------------------------------------------------------------</span>
+<span class="s">GNU Licensed</span>
+
+<span class="s">    This program is free software: you can redistribute it and/or modify</span>
+<span class="s">    it under the terms of the GNU General Public License as published by</span>
+<span class="s">    the Free Software Foundation, either version 3 of the License, or</span>
+<span class="s">    (at your option) any later version.</span>
+
+<span class="s">    This program is distributed in the hope that it will be useful,</span>
+<span class="s">    but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the </span>
+<span class="s">    GNU General Public License for more details.</span>
+
+<span class="s">    You should have received a copy of the GNU General Public License</span>
+<span class="s">    along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+
+<span class="s">--------------------------------------------------------------------</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="c">###==============================================================================###</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+   <span class="n">para</span><span class="p">,</span><span class="n">types</span><span class="p">,</span><span class="n">chan</span> <span class="o">=</span> <span class="n">_get_paradigm_channels</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> 
+   <span class="n">urls</span> <span class="o">=</span> <span class="n">URLs</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">para</span><span class="p">,</span><span class="n">types</span><span class="p">,</span><span class="n">chan</span><span class="p">)</span>
+   <span class="n">_organize_fldr</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span>
+   <span class="n">username</span><span class="p">,</span> <span class="n">password</span> <span class="o">=</span> <span class="n">get_password</span><span class="p">()</span>
+   <span class="k">print</span><span class="p">(</span><span class="s">&#39;Files to download:&#39;</span><span class="p">)</span>
+   <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">urls</span><span class="o">.</span><span class="n">filenames</span><span class="p">:</span>
+      <span class="k">print</span><span class="p">(</span><span class="n">urls</span><span class="o">.</span><span class="n">urllead</span><span class="o">+</span><span class="n">fname</span><span class="p">)</span>
+   <span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+   <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">urls</span><span class="o">.</span><span class="n">filenames</span><span class="p">:</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">&#39;downloading: &#39;</span><span class="o">+</span><span class="n">urls</span><span class="o">.</span><span class="n">urllead</span><span class="o">+</span><span class="n">fname</span><span class="p">)</span>
+      <span class="n">http_retrieve</span><span class="p">(</span><span class="n">urls</span><span class="o">.</span><span class="n">urllead</span><span class="o">+</span><span class="n">fname</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>
+
+<span class="c">###==============================================================================###</span>
+<span class="k">def</span> <span class="nf">_organize_fldr</span><span class="p">(</span><span class="n">urls</span><span class="p">):</span>
+   <span class="n">localfldr</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="n">fldr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+   <span class="k">if</span> <span class="s">&#39;UA_&#39;</span> <span class="o">==</span> <span class="n">localfldr</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span> <span class="n">localfldr</span> <span class="o">=</span> <span class="n">localfldr</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+   <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">localfldr</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">localfldr</span><span class="p">:</span>
+      <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">localfldr</span><span class="p">)</span>
+   <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">localfldr</span><span class="p">:</span> 
+      <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">localfldr</span><span class="p">)</span>
+
+<span class="c">###-------------------------------------------------------------------------------###</span>
+<span class="k">def</span> <span class="nf">_get_paradigm_channels</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+   <span class="n">all_paras</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;all&#39;</span><span class="p">,</span><span class="s">&#39;ann&#39;</span><span class="p">,</span><span class="s">&#39;rdr&#39;</span><span class="p">,</span><span class="s">&#39;grd&#39;</span><span class="p">,</span><span class="s">&#39;kmz&#39;</span><span class="p">]</span>
+   <span class="n">all_types</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;igm&#39;</span><span class="p">,</span><span class="s">&#39;amp1&#39;</span><span class="p">,</span><span class="s">&#39;amp2&#39;</span><span class="p">,</span><span class="s">&#39;int&#39;</span><span class="p">,</span><span class="s">&#39;unw&#39;</span><span class="p">,</span><span class="s">&#39;cor&#39;</span><span class="p">,</span><span class="s">&#39;hgt&#39;</span><span class="p">,</span><span class="s">&#39;dem&#39;</span><span class="p">]</span>
+   <span class="n">all_chans</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;HH&#39;</span><span class="p">,</span><span class="s">&#39;HV&#39;</span><span class="p">,</span><span class="s">&#39;VV&#39;</span><span class="p">]</span> 
+   <span class="n">chan_opts</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;ach&#39;</span><span class="p">,</span><span class="s">&#39;hh&#39;</span><span class="p">,</span><span class="s">&#39;hv&#39;</span><span class="p">,</span><span class="s">&#39;vv&#39;</span><span class="p">]</span>
+
+   <span class="c"># set defaults</span>
+   <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;ann&#39;</span><span class="p">:</span> 
+      <span class="n">para</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;ann&#39;</span><span class="p">]</span>
+   <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;grd&#39;</span><span class="p">:</span>
+      <span class="n">para</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;grd&#39;</span><span class="p">]</span>
+   <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;kmz&#39;</span><span class="p">:</span>
+      <span class="n">para</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;kmz&#39;</span><span class="p">]</span>
+   <span class="k">else</span><span class="p">:</span>
+      <span class="n">para</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;rdr&#39;</span><span class="p">]</span>
+   <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;hh&#39;</span><span class="p">]</span>
+   <span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;igm&#39;</span><span class="p">]</span>
+
+   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)):</span>
+      <span class="n">tpar</span><span class="p">,</span> <span class="n">ttyp</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span>
+      <span class="n">temp_para</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">temp_para</span><span class="p">:</span>
+         <span class="k">if</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">all_paras</span><span class="p">:</span> 
+            <span class="n">tpar</span> <span class="o">=</span> <span class="bp">True</span>
+         <span class="k">elif</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">all_types</span><span class="p">:</span>
+            <span class="n">ttyp</span> <span class="o">=</span> <span class="bp">True</span>
+      <span class="k">if</span> <span class="n">tpar</span><span class="p">:</span> 
+         <span class="n">para</span> <span class="o">=</span> <span class="n">temp_para</span>
+      <span class="k">elif</span> <span class="n">ttyp</span><span class="p">:</span>
+         <span class="n">types</span> <span class="o">=</span> <span class="n">temp_para</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="n">channels</span> <span class="o">=</span> <span class="n">temp_para</span>
+
+   <span class="k">if</span> <span class="s">&#39;all&#39;</span> <span class="ow">in</span> <span class="n">para</span><span class="p">:</span>
+      <span class="n">para</span> <span class="o">=</span> <span class="n">all_paras</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+   <span class="k">if</span> <span class="s">&#39;igm&#39;</span> <span class="ow">in</span> <span class="n">types</span><span class="p">:</span>
+      <span class="n">types</span> <span class="o">=</span> <span class="n">all_types</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+   <span class="k">if</span> <span class="s">&#39;ach&#39;</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
+      <span class="n">channels</span> <span class="o">=</span> <span class="n">all_chans</span>
+
+   <span class="n">newpara</span><span class="p">,</span> <span class="n">newchan</span><span class="p">,</span> <span class="n">newtype</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+   <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">para</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">all_paras</span><span class="p">:</span> 
+         <span class="k">if</span> <span class="n">par</span> <span class="o">==</span> <span class="s">&#39;rdr&#39;</span><span class="p">:</span>
+            <span class="n">newpara</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+         <span class="k">else</span><span class="p">:</span>
+            <span class="n">newpara</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
+   <span class="k">for</span> <span class="n">typ</span> <span class="ow">in</span> <span class="n">types</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">typ</span> <span class="ow">in</span> <span class="n">all_types</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span> <span class="n">newtype</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">typ</span><span class="p">)</span>
+   <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">chan_opts</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span> <span class="ow">or</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">all_chans</span><span class="p">:</span> 
+         <span class="n">newchan</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chan</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+
+   <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">newpara</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">para</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> 
+         <span class="k">print</span><span class="p">(</span><span class="s">&#39;Invalid paradigm: &#39;</span><span class="p">,</span><span class="n">para</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">&#39;Invalid paradigms: &#39;</span><span class="p">,</span><span class="n">para</span><span class="p">)</span>
+      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+   <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">newtype</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">types</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">&#39;Invalid type: &#39;</span><span class="p">,</span><span class="n">types</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">&#39;Invalid types: &#39;</span><span class="p">,</span><span class="n">types</span><span class="p">)</span>
+      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+   <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">newchan</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">&#39;Invalid channel: &#39;</span><span class="p">,</span><span class="n">channels</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">&#39;Invalid channels: &#39;</span><span class="p">,</span><span class="n">channels</span><span class="p">)</span>
+      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+   <span class="n">newpara</span> <span class="o">=</span> <span class="n">uniquify_list</span><span class="p">(</span><span class="n">newpara</span><span class="p">)</span>
+   <span class="n">newtype</span> <span class="o">=</span> <span class="n">uniquify_list</span><span class="p">(</span><span class="n">newtype</span><span class="p">)</span>
+   <span class="n">newchan</span> <span class="o">=</span> <span class="n">uniquify_list</span><span class="p">(</span><span class="n">newchan</span><span class="p">)</span>
+
+   <span class="k">return</span> <span class="n">newpara</span><span class="p">,</span> <span class="n">newtype</span><span class="p">,</span> <span class="n">newchan</span>
+
+<span class="c">###-------------------------------------------------------------------------------###</span>
+<span class="k">def</span> <span class="nf">uniquify_list</span><span class="p">(</span><span class="n">lis</span><span class="p">):</span>
+   <span class="n">new</span> <span class="o">=</span> <span class="p">[]</span>
+   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lis</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">new</span><span class="p">:</span> <span class="n">new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">new</span>
+
+<span class="c">###-------------------------------------------------------------------------------###</span>
+<div class="viewcode-block" id="URLs"><a class="viewcode-back" href="../uavsar_webpy.html#uavsar_insar_download.URLs">[docs]</a><span class="k">class</span> <span class="nc">URLs</span><span class="p">():</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   Class that builds a family of URLs from the sample</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sample</span><span class="p">,</span><span class="n">para</span><span class="p">,</span><span class="n">types</span><span class="p">,</span><span class="n">channels</span><span class="p">):</span>
+      <span class="k">if</span> <span class="s">&#39;http://&#39;</span> <span class="ow">in</span> <span class="n">sample</span> <span class="ow">or</span> <span class="s">&#39;https://&#39;</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">:</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;://&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;://&#39;</span>
+      <span class="k">elif</span> <span class="s">&#39;://&#39;</span> <span class="ow">in</span> <span class="n">sample</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;://&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n\n</span><span class="s">*** Only http has been tested...proceed with caution ***</span><span class="se">\n\n</span><span class="s">&#39;</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;://&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;://&#39;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">sample</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;://&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">fldr</span> <span class="o">=</span> <span class="s">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">urllead</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fldr</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span>
+
+      <span class="n">getann</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filenames</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="p">[]</span>
+      <span class="n">lead</span><span class="p">,</span> <span class="n">trail</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">[:</span><span class="mi">47</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+      <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">para</span><span class="p">:</span>
+         <span class="n">parstr</span> <span class="o">=</span> <span class="n">par</span>
+         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">par</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span> <span class="n">parstr</span> <span class="o">=</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="n">par</span>
+         <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">typ</span> <span class="ow">in</span> <span class="n">types</span><span class="p">:</span>
+               <span class="k">if</span> <span class="n">par</span> <span class="o">!=</span> <span class="s">&#39;ann&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lead</span><span class="o">+</span><span class="n">chan</span><span class="o">+</span><span class="n">trail</span><span class="o">+</span><span class="s">&#39;.&#39;</span><span class="o">+</span><span class="n">typ</span><span class="o">+</span><span class="n">parstr</span><span class="p">)</span> 
+         <span class="k">if</span> <span class="n">getann</span><span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lead</span><span class="o">+</span><span class="n">trail</span><span class="o">+</span><span class="s">&#39;.ann&#39;</span><span class="p">)</span>
+            <span class="n">getann</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="c">###-------------------------------------------------------------------------------###</span>
+
+<span class="c">###-------------------------------------------------------------------------------###</span></div>
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+   <span class="n">args</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+   <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+      <span class="k">print</span><span class="p">(</span><span class="n">__doc__</span><span class="p">)</span>
+      <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+   <span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014, Brent Minchew.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
