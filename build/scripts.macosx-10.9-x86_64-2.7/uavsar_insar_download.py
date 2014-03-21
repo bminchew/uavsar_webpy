@@ -1,13 +1,13 @@
-#!/usr/bin/env python
+#!/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python
 
 """
-uavsar_polsar_download.py   :  Download UAVSAR PolSAR data from ASF through the password protection
+uavsar_insar_download.py  :  Download UAVSAR InSAR data from ASF through the password protection
 
 Usage:
 
-.. code-block:: bash 
+.. code-block:: bash
 
-   $ uavsar_polsar_download.py url [options]
+   $ uavsar_insar_download.py url [options]
 
 Parameter
 ---------
@@ -15,29 +15,35 @@ Parameter
 
 Options
 -------
-   para  :  data paradigm [default --> extension of url]
+   para  :  data paradigm [default is determined from file extension]
             :options:  
-               |  all   --  get it all
-               |  ann   --  get only the annotation file 
-               |  mlc   --  get mlc data and annotation file
-               |  stk   --  get compressed Stokes data and annotation file
-               |  grd   --  get grd data and annotation file
-               |  dem   --  get dem and annotation file
-               |  kmz   --  get the kmz file
-               
-   chan  :  data channels (only works with all, mlc, or grd paradigms) [ach]
+               |  all  --   get it all  
+               |  ann  --   get only the annotation file 
+               |  rdr  --   get slant-range data and annotation file
+               |  grd  --   get ground-range data and annotation file
+               |  kmz  --   get kmz files and annotation file
+
+   type  :  data type [igm]
             :options:
-               |  ach   --  get HHHH, HVHV, VVVV, HHHV, HHVV, HVVV data
-               |  copl  --  get co-polarized data (HHHH, VVVV, and HHVV)
-               |  crpl  --  get cross-pol data (HVHV, HHHV, and HVVV)
-               |  powr  --  get power data (HHHH, VVVV, and HVHV)
-               |  chan  --  any of {hhhh, hvhv, vvvv, hhhv, hhvv, hvvv} get data for the corresponding channel 
+               |  igm  --   get it all (default)  
+               |  amp1 --   amplitude of scene 1
+               |  amp2 --   amplitude of scene 2
+               |  int  --   wrapped interferogram
+               |  unw  --   unwrapped interferogram
+               |  cor  --  correlation
+               |  hgt  --   DEM (only valid with grd paradigm)
+
+   chan  :  data channels [hh]
+            :options:
+               |  hh   --   co-polarized horizontal (default)
+               |  hv   --   cross-polarized
+               |  vv   --   co-polarized vertical 
 
 Notes
 -----
-* Use a comma separted list (no spaces) for multiple options (e.g. mlc,grd)
+* Use a comma separted list (no spaces) for multiple options (e.g. rdr,grd)
 
-* Separate para and chan arguments with a space 
+* Do not combine para, type, and/or chan lists
 
 * Python Mechanize (http://wwwsearch.sourceforge.net/mechanize/) must be installed and 
    discoverable in PYTHONPATH
@@ -49,15 +55,42 @@ Notes
 * If $HOME/.dathack.d is not found or if line uavsarhttp:<username>:<password> is not
    present, the routine will prompt the user for the username and password
 
-* See uavsar_insar_download.py documentation for examples.
- 
+See Also
+--------
+:ref:`uavsar_polsar_download`, :ref:`http_retrieve`
+
+Examples
+--------
+First let's decide on some data.  A random choice (separated and given in bash format for instructional purposes only...one could just cut and paste the complete address):
+
+.. code-block:: bash
+
+   $ url=http://uavsar.asfdaac.alaska.edu
+   $ line=UA_SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01
+   $ data=SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01.int
+   $ link=$url/$line/$data
+
+Download all interferograms and supporting data (amp1, amp2, cor, int, unw) in radar coordinates for line `SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01`_:
+
+.. code-block:: bash
+
+   $ uavsar_insar_download.py link
+
+Download wrapped igrams and correlation maps in radar and groundrange coordinates as well as kmz format:
+
+.. code-block:: bash
+
+   $ uavsar_insar_download.py link rdr,grd,kmz int,cor
+
+.. _SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01: http://uavsar.jpl.nasa.gov/cgi-bin/product.pl?jobName=SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01#data
+
 """
 from __future__ import print_function, division
 import sys,os
 import numpy as np
 from http_retrieve import http_retrieve, get_password
 
-__title__      = 'uavsar_polsar_download.py'
+__title__      = 'uavsar_insar_download.py'
 __author__     = 'Brent Minchew'
 __email__      = 'bminchew@caltech.edu'
 __created__    = 'June 2013'
@@ -88,8 +121,8 @@ GNU Licensed
 
 ###==============================================================================###
 def main(args):
-   para,chan = _get_paradigm_channels(args) 
-   urls = URLs(args[0],para,chan)
+   para,types,chan = _get_paradigm_channels(args) 
+   urls = URLs(args[0],para,types,chan)
    _organize_fldr(urls)
    username, password = get_password()
    print('Files to download:')
@@ -111,33 +144,58 @@ def _organize_fldr(urls):
 
 ###-------------------------------------------------------------------------------###
 def _get_paradigm_channels(args):
-   all_paras = ['all','ann','dat','hgt','mlc','stk','grd','dem','kmz']
-   all_chans = ['HHHH','HHHV','HHVV','HVVV','HVHV','VVVV'] 
-   chan_opts = ['ach','cop','copl','crp','crpl','pow','powr','sig','sig0','nrcs',
-                  'hhhh','hvhv','vvvv','hhhv','hhvv','hvvv']
+   all_paras = ['all','ann','rdr','grd','kmz']
+   all_types = ['igm','amp1','amp2','int','unw','cor','hgt','dem']
+   all_chans = ['HH','HV','VV'] 
+   chan_opts = ['ach','hh','hv','vv']
 
    # set defaults
-   para = [args[0].split('.')[-1].strip()]
-   channels = ['ach']
+   if args[0].split('.')[-1].strip() == 'ann': 
+      para = ['ann']
+   elif args[0].split('.')[-1].strip() == 'grd':
+      para = ['grd']
+   elif args[0].split('.')[-1].strip() == 'kmz':
+      para = ['kmz']
+   else:
+      para = ['rdr']
+   channels = ['hh']
+   types = ['igm']
 
    for i in np.arange(1,len(args)):
-      tpar = False
+      tpar, ttyp = False, False
       temp_para = args[i].split(',')
       for par in temp_para:
-         if par in all_paras: tpar = True
+         if par in all_paras: 
+            tpar = True
+         elif par in all_types:
+            ttyp = True
       if tpar: 
          para = temp_para
+      elif ttyp:
+         types = temp_para
       else:
          channels = temp_para
 
    if 'all' in para:
-      para = all_paras[4:]
+      para = all_paras[1:]
+   if 'igm' in types:
+      types = all_types[1:-1]
    if 'ach' in channels:
       channels = all_chans
 
-   newpara, newchan = [], []
+   newpara, newchan, newtype = [], [], []
    for par in para:
-      if par in all_paras: newpara.append(par)
+      if par in all_paras: 
+         if par == 'rdr':
+            newpara.append('')
+         else:
+            newpara.append(par)
+   for typ in types:
+      if typ in all_types[1:-1]: newtype.append(typ)
+   for chan in channels:
+      if chan in chan_opts[-3:] or chan in all_chans: 
+         newchan.append(chan.upper())
+
    if len(newpara) < 1:
       if len(para) == 1: 
          print('Invalid paradigm: ',para)
@@ -145,18 +203,12 @@ def _get_paradigm_channels(args):
          print('Invalid paradigms: ',para)
       sys.exit()
 
-   for chan in channels:
-      if chan in chan_opts: 
-         if chan == 'copl' or chan == 'cop':
-            newchan.append('HHHH'); newchan.append('HHVV'); newchan.append('VVVV')
-         elif chan == 'crpl' or chan == 'crp':
-            newchan.append('HVHV'); newchan.append('HHHV'); newchan.append('HVVV')
-         elif chan == 'powr' or chan == 'pow' or chan == 'sig' or chan == 'nrcs' or chan == 'sig0':
-            newchan.append('HHHH'); newchan.append('HVHV'); newchan.append('VVVV')
-         elif chan in chan_opts[-6:]:
-            newchan.append(chan.upper())
-      elif chan in all_chans:
-         newchan.append(chan)
+   if len(newtype) < 1:
+      if len(types) == 1:
+         print('Invalid type: ',types)
+      else:
+         print('Invalid types: ',types)
+      sys.exit()
 
    if len(newchan) < 1:
       if len(channels) == 1:
@@ -164,10 +216,12 @@ def _get_paradigm_channels(args):
       else:
          print('Invalid channels: ',channels)
       sys.exit()
-   
+
    newpara = uniquify_list(newpara)
+   newtype = uniquify_list(newtype)
    newchan = uniquify_list(newchan)
-   return newpara, newchan
+
+   return newpara, newtype, newchan
 
 ###-------------------------------------------------------------------------------###
 def uniquify_list(lis):
@@ -181,7 +235,7 @@ class URLs():
    """
    Class that builds a family of URLs from the sample
    """
-   def __init__(self,sample,para,channels):
+   def __init__(self,sample,para,types,channels):
       if 'http://' in sample or 'https://' in sample:
          self.scheme = sample.split('://')[0] + '://'
       elif '://' in sample and len(sample.split('://')[0]) > 0:
@@ -194,26 +248,23 @@ class URLs():
       self.urllead = self.scheme + self.host + self.fldr + '/'
 
       getann, self.filenames = True, []
-      lead, trail = self.file[:34], self.file[-6:]
+      lead, trail = self.file[:47], self.file[-3:]
       for par in para:
-         if par == 'mlc' or par == 'grd':
-            for chan in channels:
-               self.filenames.append(lead+chan+trail+'.'+par) 
-         elif par == 'dat' or par == 'hgt' or par == 'kmz':
-            self.filenames.append(lead+trail+'.'+par)
-         elif par == 'stk': 
-            self.filenames.append(lead+trail+'.dat')
-         elif par == 'dem':
-            self.filenames.append(lead+trail+'.hgt')
-         if par != 'kmz' and getann: 
-            self.filenames.append(lead+trail+'.ann')
+         parstr = par
+         if len(par) > 1: parstr = '.' + par
+         for chan in channels:
+            for typ in types:
+               if par != 'ann': 
+                  self.filenames.append(lead+chan+trail+'.'+typ+parstr) 
+         if getann: 
+            self.filenames.append(lead+chan+trail+'.ann')
             getann = False
 ###-------------------------------------------------------------------------------###
 
 ###-------------------------------------------------------------------------------###
 if __name__=='__main__':
    args = sys.argv[1:]
-   if len(args) < 1 or len(args) > 3:
+   if len(args) < 1 or len(args) > 4:
       print(__doc__)
       sys.exit()
    main(args)

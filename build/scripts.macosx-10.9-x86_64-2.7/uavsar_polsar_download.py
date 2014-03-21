@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python
 
 """
 uavsar_polsar_download.py   :  Download UAVSAR PolSAR data from ASF through the password protection

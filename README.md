@@ -14,7 +14,9 @@ python setup.py install [--prefix=/path/to/pybuild/uavsar-webpy]
 
 Requirements
 ------------
-Python module Mechanize (http://wwwsearch.sourceforge.net/mechanize/) must be installed and
+- Python 2.6 or greater 
+- Numpy 1.6.0 or greater
+- Python module Mechanize (http://wwwsearch.sourceforge.net/mechanize/) must be installed and
 discoverable in PYTHONPATH
 
 Options

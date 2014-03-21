@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python
 
 """
 http_retrieve.py :  Simple routine to download password-protected data
