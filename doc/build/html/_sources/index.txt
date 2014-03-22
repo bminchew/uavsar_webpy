@@ -1,23 +1,19 @@
+.. highlight:: rst
 .. uavsar_webpy documentation master file, created by
    sphinx-quickstart on Mon Jan 20 19:03:54 2014.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-uavsar_webpy
-------------
+UAVSAR_WebPy
+============
 
-Contents
-^^^^^^^^
+UAVSAR_WebPy is a simple toolbox for downloading UAVSAR data through the Alaska Satellite Facility. This package consists of three scripts:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   uavsar_webpy
+   ./routines/insar
+   ./routines/polsar
+   ./routines/http_ret
 
-Indices and tables
-^^^^^^^^^^^^^^^^^^
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 

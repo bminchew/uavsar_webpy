@@ -48,9 +48,9 @@ Notes
 * Python Mechanize (http://wwwsearch.sourceforge.net/mechanize/) must be installed and 
    discoverable in PYTHONPATH
 
-* For convenience, create a text file $HOME/.dathack.d whose first line reads:
-   uavsarhttp:<username>:<password> (replace fields <username> and <password>) 
-   (if you're concerned about privacy run: chmod a-rxw .dathack.d; chmod u+r .dathack.d )
+* For convenience, create a text file $HOME/.dathack.d whose first line reads::
+
+   uavsarhttp:<username>:<password> 
 
 * If $HOME/.dathack.d is not found or if line uavsarhttp:<username>:<password> is not
    present, the routine will prompt the user for the username and password
