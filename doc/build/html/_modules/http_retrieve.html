@@ -98,7 +98,11 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">http_retrieve.py :  Simple routine to download password-protected data</span>
 
-<span class="sd">Usage: http_retrieve.py url</span>
+<span class="sd">Usage: </span>
+
+<span class="sd">.. code-block:: bash </span>
+
+<span class="sd">   $ http_retrieve.py url</span>
 
 <span class="sd">Parameter</span>
 <span class="sd">---------</span>
@@ -117,6 +121,7 @@
 <span class="sd">   present, the routine will prompt the user for the username and password</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span><span class="nn">os</span>
 
 <span class="n">__title__</span>      <span class="o">=</span> <span class="s">&#39;http_retrieve.py&#39;</span>
@@ -183,9 +188,11 @@
 
 <div class="viewcode-block" id="get_password"><a class="viewcode-back" href="../uavsar_webpy.html#http_retrieve.get_password">[docs]</a><span class="k">def</span> <span class="nf">get_password</span><span class="p">(</span><span class="n">pfile</span><span class="o">=</span><span class="s">&#39;.dathack.d&#39;</span><span class="p">,</span><span class="n">lineid</span><span class="o">=</span><span class="s">&#39;uavsarhttp&#39;</span><span class="p">):</span>
    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">   Attempts to retrieve username and password from $HOME/pfile which has the format</span>
+<span class="sd">   Attempt to retrieve username and password from $HOME/pfile which has the format::</span>
+
 <span class="sd">      &lt;lineid&gt;:&lt;username&gt;:&lt;password&gt;</span>
-<span class="sd">   If unsuccessful, prompts the user for the information </span>
+
+<span class="sd">   If unsuccessful, prompt the user for information </span>
 <span class="sd">   &quot;&quot;&quot;</span>
    <span class="kn">from</span> <span class="nn">getpass</span> <span class="kn">import</span> <span class="n">getpass</span> 
    <span class="n">home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&#39;HOME&#39;</span><span class="p">)</span>
@@ -223,7 +230,8 @@
     </p>
     <p>
         &copy; Copyright 2014, Brent Minchew.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.<br/>
+      Last updated on Mar 21, 2014.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
     </p>
   </div>
 </footer>

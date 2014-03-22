@@ -3,10 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to uavsar_webpy's documentation!
-========================================
+uavsar_webpy
+------------
 
-Contents:
+Contents
+^^^^^^^^
 
 .. toctree::
    :maxdepth: 2
@@ -14,7 +15,7 @@ Contents:
    uavsar_webpy
 
 Indices and tables
-==================
+^^^^^^^^^^^^^^^^^^
 
 * :ref:`genindex`
 * :ref:`modindex`

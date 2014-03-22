@@ -15,21 +15,21 @@ described in more detail below.
 .. _uavsar_insar_download.py:
 
 **uavsar_insar_download.py**
-============================
+----------------------------
 .. automodule:: uavsar_insar_download
    :members:
 
 .. _uavsar_polsar_download.py:
 
 **uavsar_polsar_download.py**
-=============================
+-----------------------------
 .. automodule:: uavsar_polsar_download
    :members:
 
 .. _http_retrieve.py:
 
 **http_retrieve.py**
-====================
+--------------------
 .. automodule:: http_retrieve
    :members:
 

@@ -98,56 +98,44 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">uavsar_insar_download.py  :  Download UAVSAR InSAR data from ASF through the password protection</span>
 
-<span class="sd">Usage:  uavsar_insar_download.py url [options]</span>
+<span class="sd">Usage:</span>
+
+<span class="sd">.. code-block:: bash</span>
+
+<span class="sd">   $ uavsar_insar_download.py url [options]</span>
 
 <span class="sd">Parameter</span>
 <span class="sd">---------</span>
-<span class="sd">url      :     Any single URL corresponding to the desired UAVSAR data (this routine </span>
-<span class="sd">                  will retrieve all of the data)</span>
+<span class="sd">   url   :  Any single URL corresponding to the desired UAVSAR data </span>
 
 <span class="sd">Options</span>
 <span class="sd">-------</span>
-<span class="sd">para     :     data paradigm [default is determined from file extension]</span>
-<span class="sd">               options:  </span>
+<span class="sd">   para  :  data paradigm [default is determined from file extension]</span>
+<span class="sd">            :options:  </span>
+<span class="sd">               |  all  --   get it all  </span>
+<span class="sd">               |  ann  --   get only the annotation file </span>
+<span class="sd">               |  rdr  --   get slant-range data and annotation file</span>
+<span class="sd">               |  grd  --   get ground-range data and annotation file</span>
+<span class="sd">               |  kmz  --   get kmz files and annotation file</span>
 
-<span class="sd">                     all            :     get it all  </span>
+<span class="sd">   type  :  data type [igm]</span>
+<span class="sd">            :options:</span>
+<span class="sd">               |  igm  --   get it all (default)  </span>
+<span class="sd">               |  amp1 --   amplitude of scene 1</span>
+<span class="sd">               |  amp2 --   amplitude of scene 2</span>
+<span class="sd">               |  int  --   wrapped interferogram</span>
+<span class="sd">               |  unw  --   unwrapped interferogram</span>
+<span class="sd">               |  cor  --  correlation</span>
+<span class="sd">               |  hgt  --   DEM (only valid with grd paradigm)</span>
 
-<span class="sd">                     ann            :     get only the annotation file </span>
-
-<span class="sd">                     rdr            :     get slant-range data and annotation file</span>
-
-<span class="sd">                     grd            :     get ground-range data and annotation file</span>
-
-<span class="sd">                     kmz            :     get kmz files and annotation file</span>
-
-<span class="sd">type     :     data type [igm]</span>
-<span class="sd">               options:</span>
-
-<span class="sd">                     igm            :     get it all (default)</span>
-
-<span class="sd">                     amp1           :     amplitude of scene 1</span>
-
-<span class="sd">                     amp2           :     amplitude of scene 2</span>
-
-<span class="sd">                     int            :     wrapped interferogram</span>
-
-<span class="sd">                     unw            :     unwrapped interferogram</span>
-
-<span class="sd">                     cor            :     correlation</span>
-
-<span class="sd">                     hgt            :     DEM (only valid with grd paradigm)</span>
-
-<span class="sd">chan     :     data channels [hh]</span>
-<span class="sd">               options:</span>
-
-<span class="sd">                     hh             :     co-polarized horizontal (default)</span>
-
-<span class="sd">                     hv             :     cross-polarized</span>
-
-<span class="sd">                     vv             :     co-polarized vertical </span>
+<span class="sd">   chan  :  data channels [hh]</span>
+<span class="sd">            :options:</span>
+<span class="sd">               |  hh   --   co-polarized horizontal (default)</span>
+<span class="sd">               |  hv   --   cross-polarized</span>
+<span class="sd">               |  vv   --   co-polarized vertical </span>
 
 <span class="sd">Notes</span>
-<span class="sd">------------</span>
+<span class="sd">-----</span>
 <span class="sd">* Use a comma separted list (no spaces) for multiple options (e.g. rdr,grd)</span>
 
 <span class="sd">* Do not combine para, type, and/or chan lists</span>
@@ -162,26 +150,37 @@
 <span class="sd">* If $HOME/.dathack.d is not found or if line uavsarhttp:&lt;username&gt;:&lt;password&gt; is not</span>
 <span class="sd">   present, the routine will prompt the user for the username and password</span>
 
+<span class="sd">See Also</span>
+<span class="sd">--------</span>
+<span class="sd">:ref:`uavsar_polsar_download`, :ref:`http_retrieve`</span>
+
 <span class="sd">Examples</span>
 <span class="sd">--------</span>
-<span class="sd">Consider a random data (separated for instructional purposes only...one could just cut and paste the complete address):</span>
+<span class="sd">First let&#39;s decide on some data.  A random choice (separated and given in bash format for instructional purposes only...one could just cut and paste the complete address):</span>
 
-<span class="sd">&gt;&gt;&gt; url  = &#39;http://uavsar.asfdaac.alaska.edu&#39;</span>
-<span class="sd">&gt;&gt;&gt; line = &#39;UA_SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01&#39;</span>
-<span class="sd">&gt;&gt;&gt; data = &#39;SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01.int&#39;</span>
-<span class="sd">&gt;&gt;&gt; link = &#39;/&#39;.join([url,line,data])</span>
+<span class="sd">.. code-block:: bash</span>
 
-<span class="sd">Download all interferograms and supporting data (amp1, amp2, cor, int, unw) in radar coordinates for line `SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01`_</span>
+<span class="sd">   $ url=http://uavsar.asfdaac.alaska.edu</span>
+<span class="sd">   $ line=UA_SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01</span>
+<span class="sd">   $ data=SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01.int</span>
+<span class="sd">   $ link=$url/$line/$data</span>
 
-<span class="sd">&gt;&gt;&gt; uavsar_insar_download.py link</span>
+<span class="sd">Download all interferograms and supporting data (amp1, amp2, cor, int, unw) in radar coordinates for line `SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01`_:</span>
 
-<span class="sd">Download wrapped igrams and correlation maps in radar and groundrange coordinates as well as kmz format</span>
+<span class="sd">.. code-block:: bash</span>
 
-<span class="sd">&gt;&gt;&gt; uavsar_insar_download.py link rdr,grd,kmz int,cor</span>
+<span class="sd">   $ uavsar_insar_download.py link</span>
+
+<span class="sd">Download wrapped igrams and correlation maps in radar and groundrange coordinates as well as kmz format:</span>
+
+<span class="sd">.. code-block:: bash</span>
+
+<span class="sd">   $ uavsar_insar_download.py link rdr,grd,kmz int,cor</span>
 
 <span class="sd">.. _SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01: http://uavsar.jpl.nasa.gov/cgi-bin/product.pl?jobName=SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01#data</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span><span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">http_retrieve</span> <span class="kn">import</span> <span class="n">http_retrieve</span><span class="p">,</span> <span class="n">get_password</span>
@@ -350,9 +349,10 @@
          <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">par</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span> <span class="n">parstr</span> <span class="o">=</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="n">par</span>
          <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">typ</span> <span class="ow">in</span> <span class="n">types</span><span class="p">:</span>
-               <span class="k">if</span> <span class="n">par</span> <span class="o">!=</span> <span class="s">&#39;ann&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lead</span><span class="o">+</span><span class="n">chan</span><span class="o">+</span><span class="n">trail</span><span class="o">+</span><span class="s">&#39;.&#39;</span><span class="o">+</span><span class="n">typ</span><span class="o">+</span><span class="n">parstr</span><span class="p">)</span> 
+               <span class="k">if</span> <span class="n">par</span> <span class="o">!=</span> <span class="s">&#39;ann&#39;</span><span class="p">:</span> 
+                  <span class="bp">self</span><span class="o">.</span><span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lead</span><span class="o">+</span><span class="n">chan</span><span class="o">+</span><span class="n">trail</span><span class="o">+</span><span class="s">&#39;.&#39;</span><span class="o">+</span><span class="n">typ</span><span class="o">+</span><span class="n">parstr</span><span class="p">)</span> 
          <span class="k">if</span> <span class="n">getann</span><span class="p">:</span> 
-            <span class="bp">self</span><span class="o">.</span><span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lead</span><span class="o">+</span><span class="n">trail</span><span class="o">+</span><span class="s">&#39;.ann&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lead</span><span class="o">+</span><span class="n">chan</span><span class="o">+</span><span class="n">trail</span><span class="o">+</span><span class="s">&#39;.ann&#39;</span><span class="p">)</span>
             <span class="n">getann</span> <span class="o">=</span> <span class="bp">False</span>
 <span class="c">###-------------------------------------------------------------------------------###</span>
 
@@ -374,7 +374,8 @@
     </p>
     <p>
         &copy; Copyright 2014, Brent Minchew.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.<br/>
+      Last updated on Mar 21, 2014.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
     </p>
   </div>
 </footer>

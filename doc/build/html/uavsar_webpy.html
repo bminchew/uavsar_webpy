@@ -30,7 +30,7 @@
     <script type="text/javascript" src="_static/bootstrap-2.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="uavsar_webpy 0 documentation" href="index.html" />
-    <link rel="prev" title="Welcome to uavsar_webpy’s documentation!" href="index.html" />
+    <link rel="prev" title="uavsar_webpy" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -74,6 +74,7 @@
 <li><a class="reference internal" href="#parameter">Parameter</a></li>
 <li><a class="reference internal" href="#options">Options</a></li>
 <li><a class="reference internal" href="#notes">Notes</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
@@ -97,7 +98,7 @@
           
             
   <li><a href="index.html"
-         title="previous chapter">&laquo; Welcome to uavsar_webpy&#8217;s documentation!</a></li>
+         title="previous chapter">&laquo; uavsar_webpy</a></li>
           
           
             <li>
@@ -133,48 +134,72 @@
 <div class="section" id="uavsar-insar-download-py">
 <span id="id2"></span><h2><strong>uavsar_insar_download.py</strong><a class="headerlink" href="#uavsar-insar-download-py" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-uavsar_insar_download"></span><p>uavsar_insar_download.py  :  Download UAVSAR InSAR data from ASF through the password protection</p>
-<p>Usage:  uavsar_insar_download.py url [options]</p>
+<p>Usage:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>uavsar_insar_download.py url <span class="o">[</span>options<span class="o">]</span>
+</pre></div>
+</div>
 <div class="section" id="parameter">
 <h3>Parameter<a class="headerlink" href="#parameter" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>url <span class="classifier-delimiter">:</span> <span class="classifier">Any single URL corresponding to the desired UAVSAR data (this routine </span></dt>
-<dd>will retrieve all of the data)</dd>
-</dl>
+<blockquote>
+<div>url   :  Any single URL corresponding to the desired UAVSAR data</div></blockquote>
 </div>
 <div class="section" id="options">
 <h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
+<blockquote>
+<div><dl class="docutils">
 <dt>para <span class="classifier-delimiter">:</span> <span class="classifier">data paradigm [default is determined from file extension]</span></dt>
-<dd><p class="first">options:</p>
-<blockquote class="last">
-<div><p>all            :     get it all</p>
-<p>ann            :     get only the annotation file</p>
-<p>rdr            :     get slant-range data and annotation file</p>
-<p>grd            :     get ground-range data and annotation file</p>
-<p>kmz            :     get kmz files and annotation file</p>
-</div></blockquote>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">options:</th><td class="field-body"><div class="first last line-block">
+<div class="line">all  &#8211;   get it all  </div>
+<div class="line">ann  &#8211;   get only the annotation file </div>
+<div class="line">rdr  &#8211;   get slant-range data and annotation file</div>
+<div class="line">grd  &#8211;   get ground-range data and annotation file</div>
+<div class="line">kmz  &#8211;   get kmz files and annotation file</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
 </dd>
 <dt>type <span class="classifier-delimiter">:</span> <span class="classifier">data type [igm]</span></dt>
-<dd><p class="first">options:</p>
-<blockquote class="last">
-<div><p>igm            :     get it all (default)</p>
-<p>amp1           :     amplitude of scene 1</p>
-<p>amp2           :     amplitude of scene 2</p>
-<p>int            :     wrapped interferogram</p>
-<p>unw            :     unwrapped interferogram</p>
-<p>cor            :     correlation</p>
-<p>hgt            :     DEM (only valid with grd paradigm)</p>
-</div></blockquote>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">options:</th><td class="field-body"><div class="first last line-block">
+<div class="line">igm  &#8211;   get it all (default)  </div>
+<div class="line">amp1 &#8211;   amplitude of scene 1</div>
+<div class="line">amp2 &#8211;   amplitude of scene 2</div>
+<div class="line">int  &#8211;   wrapped interferogram</div>
+<div class="line">unw  &#8211;   unwrapped interferogram</div>
+<div class="line">cor  &#8211;  correlation</div>
+<div class="line">hgt  &#8211;   DEM (only valid with grd paradigm)</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
 </dd>
 <dt>chan <span class="classifier-delimiter">:</span> <span class="classifier">data channels [hh]</span></dt>
-<dd><p class="first">options:</p>
-<blockquote class="last">
-<div><p>hh             :     co-polarized horizontal (default)</p>
-<p>hv             :     cross-polarized</p>
-<p>vv             :     co-polarized vertical</p>
-</div></blockquote>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">options:</th><td class="field-body"><div class="first last line-block">
+<div class="line">hh   &#8211;   co-polarized horizontal (default)</div>
+<div class="line">hv   &#8211;   cross-polarized</div>
+<div class="line">vv   &#8211;   co-polarized vertical </div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
 </dd>
 </dl>
+</div></blockquote>
 </div>
 <div class="section" id="notes">
 <h3>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h3>
@@ -204,21 +229,25 @@
 </li>
 </ul>
 </div>
+<div class="section" id="see-also">
+<h3>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h3>
+<p><em class="xref std std-ref">uavsar_polsar_download</em>, <em class="xref std std-ref">http_retrieve</em></p>
+</div>
 <div class="section" id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
-<p>Consider a random data (separated for instructional purposes only...one could just cut and paste the complete address):</p>
-<div class="highlight-rst"><div class="highlight"><pre>&gt;&gt;&gt; url  = &#39;http://uavsar.asfdaac.alaska.edu&#39;
-&gt;&gt;&gt; line = &#39;UA_SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01&#39;
-&gt;&gt;&gt; data = &#39;SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01.int&#39;
-&gt;&gt;&gt; link = &#39;/&#39;.join([url,line,data])
+<p>First let&#8217;s decide on some data.  A random choice (separated and given in bash format for instructional purposes only...one could just cut and paste the complete address):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ url</span><span class="o">=</span>http://uavsar.asfdaac.alaska.edu
+<span class="nv">$ line</span><span class="o">=</span>UA_SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01
+<span class="nv">$ data</span><span class="o">=</span>SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01.int
+<span class="nv">$ link</span><span class="o">=</span><span class="nv">$url</span>/<span class="nv">$line</span>/<span class="nv">$data</span>
 </pre></div>
 </div>
-<p>Download all interferograms and supporting data (amp1, amp2, cor, int, unw) in radar coordinates for line <a class="reference external" href="http://uavsar.jpl.nasa.gov/cgi-bin/product.pl?jobName=SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01#data">SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01</a></p>
-<div class="highlight-rst"><div class="highlight"><pre>&gt;&gt;&gt; uavsar_insar_download.py link
+<p>Download all interferograms and supporting data (amp1, amp2, cor, int, unw) in radar coordinates for line <a class="reference external" href="http://uavsar.jpl.nasa.gov/cgi-bin/product.pl?jobName=SanAnd_08503_09083-008_10027-003_0174d_s01_L090_01#data">SanAnd_08503_09083-008_10027-003_0174d_s01_L090HH_01</a>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>uavsar_insar_download.py link
 </pre></div>
 </div>
-<p>Download wrapped igrams and correlation maps in radar and groundrange coordinates as well as kmz format</p>
-<div class="highlight-rst"><div class="highlight"><pre>&gt;&gt;&gt; uavsar_insar_download.py link rdr,grd,kmz int,cor
+<p>Download wrapped igrams and correlation maps in radar and groundrange coordinates as well as kmz format:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>uavsar_insar_download.py link rdr,grd,kmz int,cor
 </pre></div>
 </div>
 <dl class="class">
@@ -232,40 +261,57 @@
 <div class="section" id="uavsar-polsar-download-py">
 <span id="id3"></span><h2><strong>uavsar_polsar_download.py</strong><a class="headerlink" href="#uavsar-polsar-download-py" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-uavsar_polsar_download"></span><p>uavsar_polsar_download.py   :  Download UAVSAR PolSAR data from ASF through the password protection</p>
-<p>Usage:  uavsar_polsar_download.py url [options]</p>
+<p>Usage:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>uavsar_polsar_download.py url <span class="o">[</span>options<span class="o">]</span>
+</pre></div>
+</div>
 <div class="section" id="id4">
 <h3>Parameter<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>url <span class="classifier-delimiter">:</span> <span class="classifier">Any single URL corresponding to the desired UAVSAR data (this routine </span></dt>
-<dd>will retrieve all of the data)</dd>
-</dl>
+<blockquote>
+<div>url   :  Any single URL corresponding to the desired UAVSAR data</div></blockquote>
 </div>
 <div class="section" id="id5">
 <h3>Options<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
+<blockquote>
+<div><dl class="docutils">
 <dt>para <span class="classifier-delimiter">:</span> <span class="classifier">data paradigm [default &#8211;&gt; extension of url]</span></dt>
-<dd><p class="first">options:</p>
-<blockquote class="last">
-<div><p>all            :     get it all</p>
-<p>ann            :     get only the annotation file</p>
-<p>mlc            :     get mlc data and annotation file</p>
-<p>stk            :     get compressed Stokes data and annotation file</p>
-<p>grd            :     get grd data and annotation file</p>
-<p>dem            :     get dem and annotation file</p>
-<p>kmz            :     get the kmz file</p>
-</div></blockquote>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">options:</th><td class="field-body"><div class="first last line-block">
+<div class="line">all   &#8211;  get it all</div>
+<div class="line">ann   &#8211;  get only the annotation file </div>
+<div class="line">mlc   &#8211;  get mlc data and annotation file</div>
+<div class="line">stk   &#8211;  get compressed Stokes data and annotation file</div>
+<div class="line">grd   &#8211;  get grd data and annotation file</div>
+<div class="line">dem   &#8211;  get dem and annotation file</div>
+<div class="line">kmz   &#8211;  get the kmz file</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
 </dd>
 <dt>chan <span class="classifier-delimiter">:</span> <span class="classifier">data channels (only works with all, mlc, or grd paradigms) [ach]</span></dt>
-<dd><p class="first">options:</p>
-<blockquote class="last">
-<div><p>ach            :     get HHHH, HVHV, VVVV, HHHV, HHVV, HVVV data</p>
-<p>copl           :     get co-polarized data (HHHH, VVVV, and HHVV)</p>
-<p>crpl           :     get cross-pol data (HVHV, HHHV, and HVVV)</p>
-<p>powr           :     get power data (HHHH, VVVV, and HVHV)</p>
-<p>chan           :     any of {hhhh, hvhv, vvvv, hhhv, hhvv, hvvv} get data for the corresponding channel</p>
-</div></blockquote>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">options:</th><td class="field-body"><div class="first last line-block">
+<div class="line">ach   &#8211;  get HHHH, HVHV, VVVV, HHHV, HHVV, HVVV data</div>
+<div class="line">copl  &#8211;  get co-polarized data (HHHH, VVVV, and HHVV)</div>
+<div class="line">crpl  &#8211;  get cross-pol data (HVHV, HHHV, and HVVV)</div>
+<div class="line">powr  &#8211;  get power data (HHHH, VVVV, and HVHV)</div>
+<div class="line">chan  &#8211;  any of {hhhh, hvhv, vvvv, hhhv, hhvv, hvvv} get data for the corresponding channel </div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
 </dd>
 </dl>
+</div></blockquote>
 </div>
 <div class="section" id="id6">
 <h3>Notes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
@@ -293,6 +339,8 @@
 </dd>
 </dl>
 </li>
+<li><p class="first">See uavsar_insar_download.py documentation for examples.</p>
+</li>
 </ul>
 <dl class="class">
 <dt id="uavsar_polsar_download.URLs">
@@ -305,7 +353,10 @@
 <div class="section" id="http-retrieve-py">
 <span id="id7"></span><h2><strong>http_retrieve.py</strong><a class="headerlink" href="#http-retrieve-py" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-http_retrieve"></span><p>http_retrieve.py :  Simple routine to download password-protected data</p>
-<p>Usage: http_retrieve.py url</p>
+<p>Usage:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>http_retrieve.py url
+</pre></div>
+</div>
 <div class="section" id="id8">
 <h3>Parameter<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>url   :  file URL</p>
@@ -336,11 +387,11 @@
 <dl class="function">
 <dt id="http_retrieve.get_password">
 <tt class="descclassname">http_retrieve.</tt><tt class="descname">get_password</tt><big>(</big><em>pfile='.dathack.d'</em>, <em>lineid='uavsarhttp'</em><big>)</big><a class="reference internal" href="_modules/http_retrieve.html#get_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#http_retrieve.get_password" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Attempts to retrieve username and password from $HOME/pfile which has the format</dt>
-<dd>&lt;lineid&gt;:&lt;username&gt;:&lt;password&gt;</dd>
-</dl>
-<p>If unsuccessful, prompts the user for the information</p>
+<dd><p>Attempt to retrieve username and password from $HOME/pfile which has the format:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="nt">&lt;lineid&gt;</span>:<span class="nt">&lt;username&gt;</span>:<span class="nt">&lt;password&gt;</span>
+</pre></div>
+</div>
+<p>If unsuccessful, prompt the user for information</p>
 </dd></dl>
 
 </div>
@@ -357,7 +408,8 @@
     </p>
     <p>
         &copy; Copyright 2014, Brent Minchew.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.<br/>
+      Last updated on Mar 21, 2014.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
     </p>
   </div>
 </footer>

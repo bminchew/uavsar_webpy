@@ -98,47 +98,38 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">uavsar_polsar_download.py   :  Download UAVSAR PolSAR data from ASF through the password protection</span>
 
-<span class="sd">Usage:  uavsar_polsar_download.py url [options]</span>
+<span class="sd">Usage:</span>
+
+<span class="sd">.. code-block:: bash </span>
+
+<span class="sd">   $ uavsar_polsar_download.py url [options]</span>
 
 <span class="sd">Parameter</span>
 <span class="sd">---------</span>
-<span class="sd">url      :     Any single URL corresponding to the desired UAVSAR data (this routine </span>
-<span class="sd">                  will retrieve all of the data)</span>
+<span class="sd">   url   :  Any single URL corresponding to the desired UAVSAR data </span>
 
 <span class="sd">Options</span>
 <span class="sd">-------</span>
-<span class="sd">para     :     data paradigm [default --&gt; extension of url]</span>
-<span class="sd">               options:  </span>
-
-<span class="sd">                     all            :     get it all</span>
-
-<span class="sd">                     ann            :     get only the annotation file </span>
-
-<span class="sd">                     mlc            :     get mlc data and annotation file</span>
-
-<span class="sd">                     stk            :     get compressed Stokes data and annotation file</span>
-
-<span class="sd">                     grd            :     get grd data and annotation file</span>
-
-<span class="sd">                     dem            :     get dem and annotation file</span>
-
-<span class="sd">                     kmz            :     get the kmz file</span>
+<span class="sd">   para  :  data paradigm [default --&gt; extension of url]</span>
+<span class="sd">            :options:  </span>
+<span class="sd">               |  all   --  get it all</span>
+<span class="sd">               |  ann   --  get only the annotation file </span>
+<span class="sd">               |  mlc   --  get mlc data and annotation file</span>
+<span class="sd">               |  stk   --  get compressed Stokes data and annotation file</span>
+<span class="sd">               |  grd   --  get grd data and annotation file</span>
+<span class="sd">               |  dem   --  get dem and annotation file</span>
+<span class="sd">               |  kmz   --  get the kmz file</span>
 <span class="sd">               </span>
-<span class="sd">chan     :     data channels (only works with all, mlc, or grd paradigms) [ach]</span>
-<span class="sd">               options:</span>
-
-<span class="sd">                     ach            :     get HHHH, HVHV, VVVV, HHHV, HHVV, HVVV data</span>
-
-<span class="sd">                     copl           :     get co-polarized data (HHHH, VVVV, and HHVV)</span>
-
-<span class="sd">                     crpl           :     get cross-pol data (HVHV, HHHV, and HVVV)</span>
-
-<span class="sd">                     powr           :     get power data (HHHH, VVVV, and HVHV)</span>
-
-<span class="sd">                     chan           :     any of {hhhh, hvhv, vvvv, hhhv, hhvv, hvvv} get data for the corresponding channel </span>
+<span class="sd">   chan  :  data channels (only works with all, mlc, or grd paradigms) [ach]</span>
+<span class="sd">            :options:</span>
+<span class="sd">               |  ach   --  get HHHH, HVHV, VVVV, HHHV, HHVV, HVVV data</span>
+<span class="sd">               |  copl  --  get co-polarized data (HHHH, VVVV, and HHVV)</span>
+<span class="sd">               |  crpl  --  get cross-pol data (HVHV, HHHV, and HVVV)</span>
+<span class="sd">               |  powr  --  get power data (HHHH, VVVV, and HVHV)</span>
+<span class="sd">               |  chan  --  any of {hhhh, hvhv, vvvv, hhhv, hhvv, hvvv} get data for the corresponding channel </span>
 
 <span class="sd">Notes</span>
-<span class="sd">------------</span>
+<span class="sd">-----</span>
 <span class="sd">* Use a comma separted list (no spaces) for multiple options (e.g. mlc,grd)</span>
 
 <span class="sd">* Separate para and chan arguments with a space </span>
@@ -153,7 +144,10 @@
 <span class="sd">* If $HOME/.dathack.d is not found or if line uavsarhttp:&lt;username&gt;:&lt;password&gt; is not</span>
 <span class="sd">   present, the routine will prompt the user for the username and password</span>
 
+<span class="sd">* See uavsar_insar_download.py documentation for examples.</span>
+<span class="sd"> </span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span><span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">http_retrieve</span> <span class="kn">import</span> <span class="n">http_retrieve</span><span class="p">,</span> <span class="n">get_password</span>
@@ -329,7 +323,8 @@
     </p>
     <p>
         &copy; Copyright 2014, Brent Minchew.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.<br/>
+      Last updated on Mar 21, 2014.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2.<br/>
     </p>
   </div>
 </footer>
