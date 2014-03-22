@@ -24,7 +24,7 @@ GNU Licensed
 """
 import sys,os
 
-VERSION = '0.1.0'
+VERSION = '1.0'
 
 def write_version_py(filename='version.py'):
    cnt = '"""' + __doc__
