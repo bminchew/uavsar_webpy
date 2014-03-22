@@ -6,7 +6,7 @@ Some examples are included below.
 
 Website
 -------
-[Link](http://www.gps.caltech.edu/~bminchew/mycodes/uavsar_webpy/uavsar_webpy-0.1.0/doc/build/html/index.html)
+[Link](http://www.gps.caltech.edu/~bminchew/mycodes/uavsar_webpy/doc/build/html/index.html)
 
 Install
 -------
